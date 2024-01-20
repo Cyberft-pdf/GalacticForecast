@@ -45,6 +45,8 @@ def ziskat_udaje_o_slunecni_aktivite(max_pocet_tisku=1):
     except Exception as e:
         print(f"Chyba: {e}")
 
+        
+
 # Zavolání funkce pro získání a tisknutí omezeného počtu údajů
 ziskat_udaje_o_slunecni_aktivite(max_pocet_tisku=5)
 
