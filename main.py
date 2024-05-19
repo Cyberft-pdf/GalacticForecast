@@ -14,8 +14,17 @@ print("3 - information about Sun")
 
 user_input = input("answer: ")
 
-api_url = "https://api.nasa.gov/DONKI/GST?startDate=yyyy-MM-dd&endDate=yyyy-MM-dd&api_key=R4JHPxD0b82Dq3wNcWgnc1ioZmTkTr8CLvqGgnxR"
+api_url = "https://api.nasa.gov/DONKI/GST?startDate=yyyy-MM-dd&endDate=yyyy-MM-dd&api_key="
 
+
+if user_input == 1:
+     print("")
+
+
+
+
+if user_input == 2:
+    print(" ")
 
 
 
@@ -53,9 +62,6 @@ if user_input == 3:
 
                     pocet_tisku += 1
 
-                    if pocet_tisku >= max_pocet_tisku:
-                        
-                        break  
             else:
                 print(f"Chyba při získávání dat. Kód odpovědi: {odpoved.status_code}")
 
