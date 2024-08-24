@@ -1,38 +1,89 @@
 import pygame
 import requests
 
-print("--------------------------------------------")
-print("\nHello, welcom in Galactic Forecast program\n")
-print("-------------------------------------------")
+print("---------------------------------------------------")
+print("\nHello, welcome to the Galactic Forecast program\n")
+print("---------------------------------------------------\n")
 
 
-print("--------------------------------------------")
-print("choose option: ")
-print("1 - information about earth")
-print("2 - information about Mars ")
-print("3 - information about Sun")
+print("Choose an option: \n")
+print("         1 - Information about Earth")
+print("         2 - Information about Mars")
+print("         3 - Information about the Sun")
 
-user_input = input("answer: ")
+user_input = input("Answer: ")
 
 api_url = "https://api.nasa.gov/DONKI/GST?startDate=yyyy-MM-dd&endDate=yyyy-MM-dd&api_key="
 
 
-if user_input == 1:
-     print("")
+if user_input == "1":
+    print("---------------------------------------------------\n")
+
+    print("What do you want to know about Earth?")
+
+    print("         1 - Information country")
+    print("         2 - Information about weateher")
+    
+    user_input2 = input("Answer: ")
+
+
+    if user_input2 == "1":
+        def get_country_info(country_name):
+            url = f'https://restcountries.com/v3.1/name/{country_name}'
+            response = requests.get(url)
+
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list):
+                    country_info = data[0]
+                    print(f"Country: {country_info.get('name', {}).get('common', 'Unknown')}")
+                    print(f"Capital: {country_info.get('capital', ['No capital'])[0]}")
+                    print(f"Region: {country_info.get('region', 'Unknown')}")
+                    print(f"Subregion: {country_info.get('subregion', 'Unknown')}")
+                    print(f"Population: {country_info.get('population', 'Unknown')}")
+                    print(f"Languages: {', '.join(country_info.get('languages', {}).values())}")
+                    print(f"Currency: {', '.join([currency.get('name', 'Unknown') for currency in country_info.get('currencies', {}).values()])}")
+                else:
+                    print("No data found for this country.")
+            else:
+                print(f"Error: Unable to fetch data. Status code {response.status_code}")
+
+        country_name = input("Enter the country name: ")
+        get_country_info(country_name)
+
+    if user_input2 == "2":
+        print("prošlo")
 
 
 
 
-if user_input == 2:
-    print(" ")
+
+if user_input == "2":
+
+        url = 'https://api.maas2.apollorion.com/'  # Mars Atmospheric Aggregation System API
+        try:
+            response = requests.get(url)
+            response.raise_for_status()
+            data = response.json()
+
+            # Získání dat z JSON odpovědi
+            sol = data.get('sol', 'N/A')
+            temperature = data.get('temperature', {})
+            pressure = data.get('pressure', 'N/A')  # Pressure není objekt, ale přímo hodnota
+            wind = data.get('wind', {}).get('speed', {})
+
+            print(f"\nSol: {sol}")
+            print(f"Temperature: {temperature.get('average', 'N/A')} °C")
+            print(f"Pressure: {pressure} Pa")
+            print(f"Wind Speed: {wind.get('average', 'N/A')} m/s")
+
+        except requests.RequestException as e:
+            print(f"Error fetching Mars weather data: {e}")
 
 
 
 
-
-
-
-if user_input == 3:
+if user_input == "3":
 
         try:
             odpoved = requests.get(api_url)
@@ -67,6 +118,13 @@ if user_input == 3:
 
         except Exception as e:
             print(f"Chyba: {e}")
+
+
+
+
+
+
+
 
 
 
